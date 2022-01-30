@@ -1,0 +1,45 @@
+{
+  "demo": {
+    "stacks": [
+      {
+        "id": "Secrets-demo",
+        "name": "Secrets-demo",
+        "region": "us-east-1",
+        "dependencies": []
+      },
+      {
+        "id": "Datastore-demo",
+        "name": "Datastore-demo",
+        "region": "us-east-1",
+        "dependencies": []
+      },
+      {
+        "id": "Async-demo",
+        "name": "Async-demo",
+        "region": "us-east-1",
+        "dependencies": [
+          "Datastore-demo",
+          "Secrets-demo"
+        ]
+      },
+      {
+        "id": "BillingApi-demo",
+        "name": "BillingApi-demo",
+        "region": "us-east-1",
+        "dependencies": [
+          "Datastore-demo",
+          "Secrets-demo"
+        ]
+      },
+      {
+        "id": "Dashboards-demo",
+        "name": "Dashboards-demo",
+        "region": "us-east-1",
+        "dependencies": [
+          "Async-demo",
+          "BillingApi-demo"
+        ]
+      }
+    ]
+  }
+}

@@ -1,23 +1,38 @@
-import { App, Stack, StackProps } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
+import { App } from '@aws-cdk/core';
 
-export class MyStack extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps = {}) {
-    super(scope, id, props);
-
-    // define resources here...
-  }
-}
-
-// for development, use account/region from cdk cli
-const devEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
-};
+import {
+  ApiStack,
+  AsyncStack,
+  DashboardStack,
+  DatastoreStack,
+  SecretsStack,
+} from './stacks';
 
 const app = new App();
 
-new MyStack(app, 'my-stack-dev', { env: devEnv });
-// new MyStack(app, 'my-stack-prod', { env: prodEnv });
+const stage = process.env.STAGE ?? 'demo';
+
+const secretsStack = new SecretsStack(app, `Secrets-${stage}`, { stage });
+const datastoreStack = new DatastoreStack(app, `Datastore-${stage}`, { stage });
+
+const asyncStack = new AsyncStack(app, `Async-${stage}`, {
+  stage,
+  table: datastoreStack.table,
+  externalApiKeySecret: secretsStack.externalApiKeySecret,
+});
+
+const apiStack = new ApiStack(app, `BillingApi-${stage}`, {
+  stage,
+  table: datastoreStack.table,
+  externalApiKeySecret: secretsStack.externalApiKeySecret,
+});
+
+new DashboardStack(app, `Dashboards-${stage}`, {
+  stage,
+  lambdaFunctions: [
+    ...asyncStack.functions,
+    ...apiStack.functions,
+  ],
+});
 
 app.synth();
