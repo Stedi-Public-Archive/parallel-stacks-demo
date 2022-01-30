@@ -4,7 +4,6 @@ const { GraphDeployWorkflow } = require('./.projen/workflows/graphDeploy');
 const project = new awscdk.AwsCdkTypeScriptApp({
   name: 'parallel-stacks-demo',
   defaultReleaseBranch: 'main',
-
   packageManager: javascript.NodePackageManager.NPM,
 
   cdkVersion: '1.134.0',
