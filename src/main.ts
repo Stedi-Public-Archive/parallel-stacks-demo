@@ -21,7 +21,7 @@ const asyncStack = new AsyncStack(app, `Async-${stage}`, {
   externalApiKeySecret: secretsStack.externalApiKeySecret,
 });
 
-const apiStack = new ApiStack(app, `BillingApi-${stage}`, {
+const apiStack = new ApiStack(app, `Api-${stage}`, {
   stage,
   table: datastoreStack.table,
   externalApiKeySecret: secretsStack.externalApiKeySecret,

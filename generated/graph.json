@@ -23,8 +23,8 @@
         ]
       },
       {
-        "id": "BillingApi-demo",
-        "name": "BillingApi-demo",
+        "id": "Api-demo",
+        "name": "Api-demo",
         "region": "us-east-1",
         "dependencies": [
           "Datastore-demo",
@@ -37,7 +37,7 @@
         "region": "us-east-1",
         "dependencies": [
           "Async-demo",
-          "BillingApi-demo"
+          "Api-demo"
         ]
       }
     ]

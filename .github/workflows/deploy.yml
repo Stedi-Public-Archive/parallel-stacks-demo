@@ -69,7 +69,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
-          role-to-assume: ${{ secrets.XXX }}
+          role-to-assume: ${{ secrets.OIDC_ROLE }}
           role-duration-seconds: 1200
       - name: Deploy Secrets-demo
         run: unset USER; npx cdk deploy --exclusively Secrets-demo --require-approval never -O .stack-outputs.json
@@ -104,7 +104,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
-          role-to-assume: ${{ secrets.XXX }}
+          role-to-assume: ${{ secrets.OIDC_ROLE }}
           role-duration-seconds: 1200
       - name: Deploy Datastore-demo
         run: unset USER; npx cdk deploy --exclusively Datastore-demo --require-approval never -O .stack-outputs.json
@@ -142,11 +142,11 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
-          role-to-assume: ${{ secrets.XXX }}
+          role-to-assume: ${{ secrets.OIDC_ROLE }}
           role-duration-seconds: 1200
       - name: Deploy Async-demo
         run: unset USER; npx cdk deploy --exclusively Async-demo --require-approval never -O .stack-outputs.json
-  BillingApi_demo:
+  Api_demo:
     needs:
       - build
       - Datastore_demo
@@ -157,7 +157,7 @@ jobs:
       id-token: write
     environment: demo
     concurrency:
-      group: BillingApi_demo
+      group: Api_demo
       cancel-in-progress: false
     env:
       STAGE: demo
@@ -180,15 +180,15 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
-          role-to-assume: ${{ secrets.XXX }}
+          role-to-assume: ${{ secrets.OIDC_ROLE }}
           role-duration-seconds: 1200
-      - name: Deploy BillingApi-demo
-        run: unset USER; npx cdk deploy --exclusively BillingApi-demo --require-approval never -O .stack-outputs.json
+      - name: Deploy Api-demo
+        run: unset USER; npx cdk deploy --exclusively Api-demo --require-approval never -O .stack-outputs.json
   Dashboards_demo:
     needs:
       - build
       - Async_demo
-      - BillingApi_demo
+      - Api_demo
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -218,7 +218,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
-          role-to-assume: ${{ secrets.XXX }}
+          role-to-assume: ${{ secrets.OIDC_ROLE }}
           role-duration-seconds: 1200
       - name: Deploy Dashboards-demo
         run: unset USER; npx cdk deploy --exclusively Dashboards-demo --require-approval never -O .stack-outputs.json
