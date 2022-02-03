@@ -38,6 +38,11 @@ jobs:
         run: npx projen build
       - name: Anti-tamper check
         run: git diff --exit-code
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2.1.1
+        with:
+          name: build-artifact
+          path: cdk.out
   Secrets_demo:
     needs: build
     runs-on: ubuntu-latest
@@ -53,6 +58,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
+          path: cdk.out
       - name: Setup Node.js
         uses: actions/setup-node@v2.2.0
         with: {}
@@ -72,7 +82,7 @@ jobs:
           role-to-assume: ${{ secrets.OIDC_ROLE }}
           role-duration-seconds: 1200
       - name: Deploy Secrets-demo
-        run: unset USER; npx cdk deploy --exclusively Secrets-demo --require-approval never -O .stack-outputs.json
+        run: npx cdk deploy --exclusively Secrets-demo --app cdk.out --require-approval never
   Datastore_demo:
     needs: build
     runs-on: ubuntu-latest
@@ -88,6 +98,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
+          path: cdk.out
       - name: Setup Node.js
         uses: actions/setup-node@v2.2.0
         with: {}
@@ -107,7 +122,7 @@ jobs:
           role-to-assume: ${{ secrets.OIDC_ROLE }}
           role-duration-seconds: 1200
       - name: Deploy Datastore-demo
-        run: unset USER; npx cdk deploy --exclusively Datastore-demo --require-approval never -O .stack-outputs.json
+        run: npx cdk deploy --exclusively Datastore-demo --app cdk.out --require-approval never
   Async_demo:
     needs:
       - build
@@ -126,6 +141,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
+          path: cdk.out
       - name: Setup Node.js
         uses: actions/setup-node@v2.2.0
         with: {}
@@ -145,7 +165,7 @@ jobs:
           role-to-assume: ${{ secrets.OIDC_ROLE }}
           role-duration-seconds: 1200
       - name: Deploy Async-demo
-        run: unset USER; npx cdk deploy --exclusively Async-demo --require-approval never -O .stack-outputs.json
+        run: npx cdk deploy --exclusively Async-demo --app cdk.out --require-approval never
   Api_demo:
     needs:
       - build
@@ -164,6 +184,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
+          path: cdk.out
       - name: Setup Node.js
         uses: actions/setup-node@v2.2.0
         with: {}
@@ -183,7 +208,7 @@ jobs:
           role-to-assume: ${{ secrets.OIDC_ROLE }}
           role-duration-seconds: 1200
       - name: Deploy Api-demo
-        run: unset USER; npx cdk deploy --exclusively Api-demo --require-approval never -O .stack-outputs.json
+        run: npx cdk deploy --exclusively Api-demo --app cdk.out --require-approval never
   Dashboards_demo:
     needs:
       - build
@@ -202,6 +227,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
+          path: cdk.out
       - name: Setup Node.js
         uses: actions/setup-node@v2.2.0
         with: {}
@@ -221,4 +251,4 @@ jobs:
           role-to-assume: ${{ secrets.OIDC_ROLE }}
           role-duration-seconds: 1200
       - name: Deploy Dashboards-demo
-        run: unset USER; npx cdk deploy --exclusively Dashboards-demo --require-approval never -O .stack-outputs.json
+        run: npx cdk deploy --exclusively Dashboards-demo --app cdk.out --require-approval never

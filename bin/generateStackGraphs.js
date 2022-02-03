@@ -7,7 +7,7 @@ const stages = ['demo'];
 const stackGraphs = {};
 
 stages.map((stage) => {
-  execSync(`unset USER; STAGE=${stage} npx cdk synth`, {
+  execSync(`STAGE=${stage} npx cdk synth`, {
     stdio: ['ignore', 'ignore', 'ignore'],
   });
   stackGraphs[stage] = parseManifest();

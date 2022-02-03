@@ -155,7 +155,10 @@ class GraphDeployWorkflow extends BasicDeployWorkflow {
   deployJobId;
 
   constructor(project, options) {
-    super(project, options);
+    super(project, {
+      ...options,
+      artifactDirectory: 'cdk.out',
+    });
 
     this.deployJobId = 'deploy';
 
@@ -196,11 +199,19 @@ class GraphDeployWorkflow extends BasicDeployWorkflow {
               uses: 'actions/checkout@v2',
               ...checkoutWith,
             },
+            {
+              name: 'Download build artifact',
+              uses: 'actions/download-artifact@v2',
+              with: {
+                name: 'build-artifact',
+                path: 'cdk.out',
+              },
+            },
             ...this.installWorkflowSteps(project),
             this.configureCredentialsStep(),
             {
               name: `Deploy ${stack.name}`,
-              run: `unset USER; npx cdk deploy --exclusively ${stack.name} --require-approval never -O .stack-outputs.json`, // Todo make this the projen command
+              run: `npx cdk deploy --exclusively ${stack.name} --app cdk.out --require-approval never`, // Todo make this the projen command
             },
           ],
           permissions: {

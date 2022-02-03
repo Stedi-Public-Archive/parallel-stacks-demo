@@ -1,3 +1,7 @@
+/**
+ * Grabbed this from Serverless Stack (SST)
+ * https://github.com/serverless-stack/serverless-stack/blob/270bb36901a58b2898ccc6bcea7cba2a9520a654/packages/core/src/index.ts#L1623-L1658
+ */
 const fs = require("fs");
 const path = require("path");
 
