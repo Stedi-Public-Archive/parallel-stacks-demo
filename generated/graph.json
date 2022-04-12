@@ -14,8 +14,8 @@
         "dependencies": []
       },
       {
-        "id": "Async-demo",
-        "name": "Async-demo",
+        "id": "AsyncJobs-demo",
+        "name": "AsyncJobs-demo",
         "region": "us-east-1",
         "dependencies": [
           "Datastore-demo",
@@ -36,7 +36,7 @@
         "name": "Dashboards-demo",
         "region": "us-east-1",
         "dependencies": [
-          "Async-demo",
+          "AsyncJobs-demo",
           "Api-demo"
         ]
       }
