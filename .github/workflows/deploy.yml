@@ -123,7 +123,7 @@ jobs:
           role-duration-seconds: 1200
       - name: Deploy Datastore-demo
         run: npx cdk deploy --exclusively Datastore-demo --app cdk.out --require-approval never
-  Async_demo:
+  AsyncJobs_demo:
     needs:
       - build
       - Datastore_demo
@@ -134,7 +134,7 @@ jobs:
       id-token: write
     environment: demo
     concurrency:
-      group: Async_demo
+      group: AsyncJobs_demo
       cancel-in-progress: false
     env:
       STAGE: demo
@@ -164,8 +164,8 @@ jobs:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.OIDC_ROLE }}
           role-duration-seconds: 1200
-      - name: Deploy Async-demo
-        run: npx cdk deploy --exclusively Async-demo --app cdk.out --require-approval never
+      - name: Deploy AsyncJobs-demo
+        run: npx cdk deploy --exclusively AsyncJobs-demo --app cdk.out --require-approval never
   Api_demo:
     needs:
       - build
@@ -212,7 +212,7 @@ jobs:
   Dashboards_demo:
     needs:
       - build
-      - Async_demo
+      - AsyncJobs_demo
       - Api_demo
     runs-on: ubuntu-latest
     permissions:
