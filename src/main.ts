@@ -1,4 +1,4 @@
-import { App } from "@aws-cdk/core";
+import { App } from '@aws-cdk/core';
 
 import {
   ApiStack,
@@ -6,11 +6,11 @@ import {
   DashboardStack,
   DatastoreStack,
   SecretsStack,
-} from "./stacks";
+} from './stacks';
 
 const app = new App();
 
-const stage = process.env.STAGE ?? "demo";
+const stage = process.env.STAGE ?? 'demo';
 
 const secretsStack = new SecretsStack(app, `Secrets-${stage}`, { stage });
 const datastoreStack = new DatastoreStack(app, `Datastore-${stage}`, { stage });
