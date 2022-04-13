@@ -1,6 +1,6 @@
 # Parallel CDK Stacks Demo
 
-[Blog post]()
+[Blog post](https://www.stedi.com/blog/parallel-cdk-stack-deployments)
 
 ## Key files / functions
 
