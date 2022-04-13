@@ -6,7 +6,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   defaultReleaseBranch: 'main',
   packageManager: javascript.NodePackageManager.NPM,
 
-  cdkVersion: '1.134.0',
+  cdkVersion: '1.152.0',
   cdkVersionPinning: true,
   cdkDependencies: [
     '@aws-cdk/aws-cloudwatch',
