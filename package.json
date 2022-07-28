@@ -51,7 +51,7 @@
     "@aws-cdk/aws-events-targets": "1.152.0",
     "@aws-cdk/aws-iam": "1.152.0",
     "@aws-cdk/aws-lambda": "1.152.0",
-    "@aws-cdk/aws-lambda-nodejs": "1.152.0",
+    "@aws-cdk/aws-lambda-nodejs": "1.163.0",
     "@aws-cdk/aws-secretsmanager": "1.152.0",
     "@aws-cdk/aws-ssm": "1.152.0",
     "@aws-cdk/core": "1.152.0",
